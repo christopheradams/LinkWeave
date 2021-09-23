@@ -11,6 +11,11 @@ Semantic Web and the Permaweb.
 > related, data.
 > —<cite>[Tim Berners-Lee][Linked Data - Design Issues]</cite>
 
+> Arweave offers a robust way of permanently storing data on-chain,
+> beyond the reach of accidental or intentional data loss or
+> manipulation.
+> —<cite>[Arweave Yellow Paper]</cite>
+
 LinkWeave adds structured data to Arweave transactions, tags, and
 documents, linking them together. LinkWeave applies four rules for
 Linked Data to the Arweave network.
@@ -200,6 +205,7 @@ SOFTWARE.
 
 [arkb]: https://github.com/textury/arkb
 [Arweave Deploy]: https://github.com/ArweaveTeam/arweave-deploy
+[Arweave Yellow Paper]: https://www.arweave.org/yellow-paper.pdf
 [Arweave]: https://www.arweave.org
 [Atomic Media Standard]: https://github.com/th8ta/AMS
 [JSON-LD]: https://json-ld.org
