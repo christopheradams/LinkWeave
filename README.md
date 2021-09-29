@@ -177,10 +177,31 @@ Linked-Data: (JSON String)
 1. Augment the [Atomic Media Standard], Non-fungible tokens (NFTs), and
    Profit Sharing Tokens (PSTs) with LinkWeave tags and documents to
    provide standard metadata for Arweave-based tokens and media objects.
-1. Express Linked Data through Arweave tags, using
-   `Linked-Data-Context`, `Linked-Data-Type`, etc.
 1. Provide a mechanism for updating LinkWeave data, analogous to
    SmartWeave contract state.
+
+### Extended Tags
+
+We propose a method for representing Linked Data literally in Arweave
+transaction tags in an extensible way. This has the advantage of making
+them queryable through GraphQL.
+
+These two sets of tags would be considered equivalent:
+
+```
+Content-Type: text/plain
+Linked-Data: {"@context":"https://schema.org","@type":"DigitalDocument","name":"Hello, World!"}
+```
+
+```
+Content-Type: text/plain
+Linked-Data-@Context: https://schema.org
+Linked-Data-@Type: DigitalDocument
+Linked-Data-Name: Hello, World!
+```
+
+The expected types of these extended tags should be one of text, URL, or
+Arweave transaction ID.
 
 ## NFTs
 
