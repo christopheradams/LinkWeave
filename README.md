@@ -35,6 +35,7 @@ Linked Data to the Arweave network.
 1. [Usage](#usage)
 1. [Goals](#goals)
 1. [Ideas](#ideas)
+1. [NFTs](#nfts)
 
 ## Links
 
@@ -181,6 +182,143 @@ Linked-Data: (JSON String)
 1. Provide a mechanism for updating LinkWeave data, analogous to
    SmartWeave contract state.
 
+## NFTs
+
+[Arweave] promises Non-Fungible Tokens (NFTs) where the token balances,
+metadata, and media files are all on the same network, and even in a
+single transaction.
+
+LinkWeave can supplement, enhance, and expand Arweave NFTs with
+Linked Data.
+
+### Token Standards
+
+We can measure NFT implementations against Ethereum's Non-Fungible Token
+Standard ([ERC-721]).
+
+A complete ERC-721 NFT requires:
+
+1. A smart contract (deployed on the Ethereum network)
+1. A JSON metadata file (hosted off-chain)
+1. An image file (hosted off-chain)
+
+ERC-721 contracts implement a standard interface, including functions
+for token balances, transfers, and approvals.
+
+The optional ERC-721 metadata extension adds three read-only functions:
+
+* `name`: The name of the NFT collection
+* `symbol`: An abbreviated name for the NFT collection
+* `tokenURI`: The URI for a JSON metadata file for the NFT
+
+The ERC-721 Metadata JSON Schema defines three properties:
+
+* `name`: The name of the NFT asset (i.e, its title)
+* `description`: The description of the NFT asset
+* `image`: The URI for an image file representing the NFT asset
+
+Large NFT marketplaces like [OpenSea][OpenSea Metadata Standards] have
+added their own metadata standards, which extend the list of properties
+in the Metadata JSON Schema.
+
+One strategy for making Ethereum NFTs more resilient is hosting the
+metadata and image files on [IPFS][Mint an NFT with IPFS] or Arweave.
+
+### Atomic NFTs
+
+The Arweave community is still in the early stages of developing
+standards for Non-Fungible Tokens within smart contracts. One common
+objective is to include both the NFT media file and its metadata in a
+single transaction. These are called *Atomic NFTs*.
+
+A minimal implementation of the Atomic NFT concept requires a
+[SmartWeave] contract and a media file transaction. This specification
+is designed to be compatible with the [Verto][Verto-Compatible NFT
+Specification] protocol.
+
+#### Token Contract
+
+The SmartWeave contract handles these functions:
+
+* `transfer`
+  - Parameters
+    - `target`: The address to transfer tokens to
+    - `qty`: The amount of tokens to transfer
+  - Returns
+    - `state`: A new contract state
+* `balance`
+  - Parameters
+    - `target`: The address to get the balance of
+  - Returns
+    - `result`
+      - `target`
+      - `ticker`
+      - `balance`
+
+See the SmartWeave contract example [token-pst.js].
+
+Compared to ERC-721 NFTs, this Atomic NFT contract lacks a set of
+"approval" functions to allow third-party operators to manage a wallet's
+tokens.
+
+#### Atomic Media
+
+The media file transaction has these tags:
+
+```
+Content-Type: (Media Type)
+App-Name: SmartWeaveContract
+App-Version: 0.3.0
+Contract-Src: (SmartWeave Contract Source ID)
+Init-State: (JSON String)
+```
+
+The `Init-State` has four properties:
+
+* `name`: The name of the NFT asset (i.e, its title)
+* `description`: The description of the NFT asset
+* `ticker`: An abbreviated name for the NFT collection
+* `balances`: A mapping of wallet addresses to minted token amounts
+
+The data for the transaction is the media file for the NFT asset. The
+[Atomic Media Standard] code can be used to create this transaction.
+
+Other implementations of the Atomic NFT concept on Arweave:
+
+* [Koii]: Uses the same contract interface as above, with slightly
+  different contract state properties.
+* [Pianity]: Uses a different contract interface, and uses tags for
+  metadata instead of contract state.
+
+### Linked NFTs
+
+These Atomic NFT implementations lack a standard, extensible vocabulary
+and the ability to link to other resources.
+
+We recommend that any additions to the Atomic NFT contract state should
+be drawn from Schema.org types such as [MediaObject] or one of its
+subtypes. Some useful properties include:
+
+* `creator`: The creator/author of the NFT
+* `license`: A license document for the NFT
+* `keywords`: Keywords or tags describing the NFT
+
+However, it would be preferable to keep the contract state limited to
+the properties required for listing the NFT on an exchange, and to
+instead add LinkWeave tags to the transaction in order to include more
+Linked Data.
+
+If an "Atomic NFT" uses a single transaction, a "Linked NFT" could
+support expanded NFTs, for example:
+
+* A triptych artwork NFT is a [VisualArtwork] which links to three media
+  files on Arweave
+* A music album NFT is a [MusicPlaylist] with a track list (each track
+  is a separate audio file on Arweave)
+
+As long as we stick to standard vocabularies and file formats, there are
+no limits to Linked Data on Arweave.
+
 ## License
 
 Copyright (c) 2021 Christopher Adams
@@ -208,9 +346,21 @@ SOFTWARE.
 [Arweave Yellow Paper]: https://www.arweave.org/yellow-paper.pdf
 [Arweave]: https://www.arweave.org
 [Atomic Media Standard]: https://github.com/th8ta/AMS
+[CreativeWork]: https://schema.org/CreativeWork
+[ERC-721]: https://eips.ethereum.org/EIPS/eip-721
+[IPFS]: https://ipfs.io
 [JSON-LD]: https://json-ld.org
+[Koii]: https://blog.koii.network/Ecosystem-Launch/
 [Linked Data - Design Issues]: https://www.w3.org/DesignIssues/LinkedData.html
 [Linked Data]: https://www.w3.org/standards/semanticweb/data
+[MediaObject]: https://schema.org/MediaObject
+[Mint an NFT with IPFS]: https://docs.ipfs.io/how-to/mint-nfts-with-ipfs/
+[MusicPlaylist]: https://schema.org/MusicPlaylist
 [Open Digital Rights Language]: https://www.w3.org/TR/odrl-model/
+[OpenSea Metadata Standards]: https://docs.opensea.io/docs/metadata-standards
+[Pianity]: https://blog.pianity.com/how-we-minted-our-first-atomic-nft-8a36c918830f
 [Schema.org]: https://schema.org
 [SmartWeave]: https://github.com/ArweaveTeam/SmartWeave
+[token-pst.js]: https://github.com/ArweaveTeam/SmartWeave/blob/master/examples/token-pst.js
+[Verto-Compatible NFT Specification]: https://www.notion.so/Verto-Compatible-NFT-Specification-fd1e85adbe5a4f7598f89c1e7eccd0d6
+[VisualArtwork]: https://schema.org/VisualArtwork
