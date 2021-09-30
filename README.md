@@ -253,10 +253,9 @@ objective is to include both the NFT media file and its metadata in a
 single transaction. These are called *Atomic NFTs*.
 
 A minimal implementation of the Atomic NFT concept requires a
-[SmartWeave] contract and a media file transaction. This specification
-is designed to be compatible with the [Verto][Verto-Compatible NFT
-Specification] protocol, so that the tokens can be listed and traded on
-an exchange.
+[SmartWeave] contract and a media file transaction. This follows the
+[Verto-Compatible NFT Specification], so that the tokens can be listed
+and traded on an exchange.
 
 #### Token Contract
 
