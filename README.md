@@ -304,12 +304,16 @@ The `Init-State` has four properties:
 The data for the transaction is the media file for the NFT asset. The
 [Atomic Media Standard] code can be used to create this transaction.
 
-Other implementations of the Atomic NFT concept on Arweave:
+Implementations of the Atomic NFT concept on Arweave include:
 
-* [Koii]: Uses the same contract interface as above, with slightly
-  different contract state properties.
-* [Pianity]: Uses a different contract interface, and uses tags for
-  metadata instead of contract state.
+* [Koii]:
+  - Follows the Verto contract specification
+  - Added properties: `owner`, `title`, `contentType`, `createdAt`,
+    `tags`
+  - Note: `name` property means the creator's name
+* [Pianity]
+  - Uses a different contract specification
+  - Uses tags for metadata instead of contract state
 
 ### Linked NFTs
 
