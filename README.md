@@ -328,11 +328,13 @@ and the ability to link to other resources.
 
 We recommend that any additions to the Atomic NFT contract state should
 be drawn from Schema.org types such as [MediaObject] or one of its
-subtypes. Some useful properties include:
+subtypes. For example:
 
 * `creator`: The creator/author of the NFT
 * `license`: A license document for the NFT
 * `keywords`: Keywords or tags describing the NFT
+* `encodingFormat`: MIME format of the NFT media
+* `dateCreated`: The date the NFT was created (in ISO 8601 format)
 
 However, it would be preferable to keep the contract state limited to
 the properties required for listing the NFT on an exchange, and to
