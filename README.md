@@ -306,6 +306,12 @@ The data for the transaction is the media file for the NFT asset. The
 
 Implementations of the Atomic NFT concept on Arweave include:
 
+* [Verto]:
+  - Follows the Verto contract specification
+  - Added functions: `mint`
+  - Added properties:  `owner`, `title`, `contentType`, `createdAt`,
+    `allowMinting`
+  - Note: `title` and `name` properties have the same meaning
 * [Koii]:
   - Follows the Verto contract specification
   - Added properties: `owner`, `title`, `contentType`, `createdAt`,
@@ -388,4 +394,5 @@ SOFTWARE.
 [SmartWeave]: https://github.com/ArweaveTeam/SmartWeave
 [token-pst.js]: https://github.com/ArweaveTeam/SmartWeave/blob/master/examples/token-pst.js
 [Verto-Compatible NFT Specification]: https://www.notion.so/Verto-Compatible-NFT-Specification-fd1e85adbe5a4f7598f89c1e7eccd0d6
+[Verto]: https://www.verto.exchange/space
 [VisualArtwork]: https://schema.org/VisualArtwork
