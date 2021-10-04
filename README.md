@@ -318,7 +318,7 @@ Implementations of the Atomic NFT concept on Arweave include:
     `tags`
   - Note: `name` property means the creator's name
 * [Pianity]
-  - Uses a different contract specification
+  - Uses a similar, extended contract specification
   - Uses tags for metadata instead of contract state
 
 ### Linked NFTs
